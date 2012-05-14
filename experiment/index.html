@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Neverend list experiment</title>
+    <!-- Mobile viewport optimization h5bp.com/ad -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width">
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+      }
+      body {
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+      }
+      #frame {
+        width: 100%;
+        height: 100%;
+      }
+      li {
+        list-style-type: none;
+        width: 100%;
+        height: 100%;
+      }
+      ol {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        position: relative;
+      }
+      ol > li {
+        -webkit-perspective: 400;
+        position: absolute;
+        -webkit-transition: top 500ms ease-in-out;
+        display: none;
+      }
+      ol > li > ul {
+        -webkit-transition: -webkit-transform 500ms ease-in-out;
+      }
+      .list.next,
+      .list.prev,
+      .list.current {
+        display: block;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transform-style: preserve-3d;
+        -webkit-transform-origin: 0;
+      }
+      ul > li {
+        width: 100%;
+        height: 100%;
+        line-height: 100%;
+        display: block;
+        font-size: 72px;
+        float: left;
+        text-align: center;
+        list-style-type: none;
+        background-color: rgba(99,0,0,0.2);
+        position: absolute;
+        display: none;
+        -webkit-transition: -webkit-transform 500ms ease-in-out, left 500ms ease-in-out;
+        -webkit-transform-origin: 50%;
+        background-size: 100% 100%;
+        -webkit-transform-origin: 50%;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+      }
+
+
+      .current.list {
+        -webkit-perspective-origin: 50%;
+        top: 0%;
+      }
+      .current.list .current, 
+      .current.list .right, 
+      .current.list .left {
+        display: block;
+      }
+      .current.list .left {
+        -webkit-transform: rotateY(-45deg) translateX(-50%);
+        left: -60%
+      }
+      .current.list .current {
+        -webkit-transform: rotateY(0);
+      }
+      .current.list .right {
+        -webkit-transform: rotateY(45deg) translateX(50%);
+        left: 60%;
+      }
+
+
+      .list.prev {
+        top: -110%;
+      }
+      .list.prev ul {
+        -webkit-transform: rotateX( 45deg );
+        -webkit-transform-style: preserve-3d;
+      }
+      .list.prev .current, 
+      .list.prev .right, 
+      .list.prev .left {
+        display: block;
+      }
+      .list.prev .left {
+        -webkit-transform: rotateY(-45deg) translateX(-50%);
+        left: -60%
+      }
+      .list.prev .current {
+        -webkit-transform: rotateY(0);
+      }
+      .list.prev .right {
+        -webkit-transform: rotateY(45deg) translateX(50%);
+        left: 60%;
+      }
+
+
+
+      .list.next {
+        top: 110%;
+      }
+      .list.next ul {
+        -webkit-transform-style: preserve-3d;
+        -webkit-transform: rotateX( -45deg );
+      }
+      .list.next .current, 
+      .list.next .right, 
+      .list.next .left {
+        display: block;
+      }
+      .list.next .left {
+        -webkit-transform: rotateY(-45deg) translateX(-50%);
+        left: -60%
+      }
+      .list.next .current {
+        -webkit-transform: rotateY(0);
+      }
+      .list.next .right {
+        -webkit-transform: rotateY(45deg) translateX(50%);
+        left: 60%;
+      }
+      #controls {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100px;
+        padding: 20px;
+        display: none;
+      }
+      #one {
+        background-image: url(Project.jpg);
+      }
+      #two {
+        background-image: url(Projects_List.jpg);
+      }
+      #three {
+        background-image: url(taskInfo.jpg);
+      }
+      #four {
+        background-image: url(taskInfo2.jpg);
+      }
+      #five {
+        background-image: url(taskInfo3.jpg);
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="controls">
+      <label>
+        <input type="checkbox" id="toggleOverflow"> Toggle viewport overflow
+      </label>
+      <div>
+        Use arrow keys to navigate panels
+      </div>
+    </div>
+    <div id="frame">
+      <ol>
+        <!--
+        <li class="prev list">
+          <ul>
+            <li class="left">1A</li>
+            <li class="current">2A</li>
+            <li class="right">3A</li>
+            <li>4A</li>
+            <li>5A</li>
+            <li>6A</li>
+          </ul>
+          </li> -->
+        <li class="current list">
+          <ul>
+            <li id="one" class="left"></li>
+            <li id="two" class="current"></li>
+            <li id="three" class="right"></li>
+            <li id="four"></li>
+            <li id="five"></li>
+          </ul>
+        </li>
+        <!--
+        <li class="next list">
+          <ul>
+            <li class="left">1C</li>
+            <li class="current">2C</li>
+            <li class="right">3C</li>
+            <li>4C</li>
+            <li>5C</li>
+            <li>6C</li>
+          </ul>
+        </li>
+        <li class="list">
+          <ul>
+            <li class="left">1D</li>
+            <li class="current">2D</li>
+            <li class="right">3D</li>
+            <li>4D</li>
+            <li>5D</li>
+            <li>6D</li>
+          </ul>
+        </li> -->
+      </ol>
+    </div>
+
+  <script src="../steal/steal.js"></script>
+  <script>
+    steal("can/control").then( "lib/jquery.mobile.event.js", function() {
+
+      can.Control( "navigation", {
+      },
+      {
+        init : function() {
+          this.currentList  = this.element.find(".current.list")
+          this.currentPanel = this.currentList.find(".current")
+        },
+
+        rotateRight : function() {
+          var children = this.currentPanel.parent().children(),
+              length = children.length,
+              index = this.currentPanel.index(),
+              left = children.eq( index - 1 ),
+              right = children.eq( ( index + 1 ) % length ),
+              rightNext = children.eq( ( index + 2 ) % length );
+
+          this.currentPanel.toggleClass("current left");
+          this.currentPanel = right.toggleClass("right current");
+          left.toggleClass("left");
+          rightNext.addClass("right");
+        },
+
+        rotateLeft : function() {
+          var children = this.currentPanel.parent().children(),
+              length = children.length,
+              index = this.currentPanel.index(),
+              left = children.eq( index - 1 ),
+              leftNext = children.eq( index - 2 ),
+              right = children.eq( ( index + 1 ) % length );
+
+          this.currentPanel.toggleClass("current right")
+          this.currentPanel = left.toggleClass("left current")
+          leftNext.addClass("left")
+          right.toggleClass("right")
+
+        },
+
+        /** /
+        rotateUp : function() {
+          var children = this.currentList.parent().children(),
+              length = children.length,
+              index = this.currentList.index(),
+              prev = children.eq( index - 1 ),
+              nextNext = children.eq( ( index + 2 ) % length ),
+              next = children.eq( ( index + 1 ) % length );
+
+          prev.toggleClass("prev")
+          this.currentList.toggleClass("current prev")
+          this.currentList = next.toggleClass("next current")
+          this.currentPanel = this.currentList.find(".current")
+          nextNext.toggleClass("next")
+        },
+
+        rotateDown : function() {
+          var children = this.currentList.parent().children(),
+              length = children.length,
+              index = this.currentList.index(),
+              prev = children.eq( index - 1 ),
+              prevPrev = children.eq( index - 2 ),
+              next = children.eq( ( index + 1 ) % length );
+
+          next.toggleClass("next")
+          this.currentList.toggleClass("current next")
+          this.currentList = prev.toggleClass("prev current")
+          this.currentPanel = this.currentList.find(".current")
+          prevPrev.toggleClass("prev")
+
+        },
+        /**/
+
+        ".list li swiperight" : function() {
+          this.rotateLeft();
+        },
+
+        ".list li swipeleft" : function() {
+          this.rotateRight();
+        },
+
+        "{window} keyup" : function( el, ev ) {
+          if ( ev.which == 37 ) {
+            this.rotateLeft();
+          } else if ( ev.which == 39 ) {
+            this.rotateRight();
+          } else if ( ev.which == 40 ) {
+//            this.rotateUp();
+          } else if ( ev.which == 38 ) {
+//            this.rotateDown();
+          }
+          ev.preventDefault();
+        }
+
+      });
+
+      can.Control("controls", {
+      }, {
+        init : function() {
+          this.frame = $("#frame");
+        },
+        "#toggleOverflow change" : function( el, ev ) {
+          if ( el.is(":checked") ) { 
+            this.frame.css("overflow", "hidden");
+          } else {
+            this.frame.css("overflow", "visible");
+          }
+        }
+      })
+
+      //new controls("#controls")
+      new navigation("#frame")
+
+    });
+  </script>
+  </body>
+</html>
